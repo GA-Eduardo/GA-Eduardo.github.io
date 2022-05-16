@@ -218,14 +218,16 @@ const peliculas = [
       'https://pages.git.generalassemb.ly/fewd-es/01-perfiles/eduardo-cabrera/',
   },
   {
-    name: ' Playlist de recursos en videos',
+    name: ' Dame tu opinión',
     year: '2022',
     campolibre:
       'recurso html css  videos youtube recursos para estudiantes general assembly grids flex selectores cancelación de ruido',
-    sinopsis: ' videos de ayuda para programación',
+    sinopsis: ' P U L S A  P A R A  I R  A L  R E C U R S O',
     poster: '/imagenes/portada_edu.jpg',
-    imagen: '/imagenes/portadaplaylist.png',
-    video: 'https://ga-eduardo.github.io/index.html',
+    imagen:
+      'https://img.blogs.es/anexom/wp-content/uploads/2021/03/como-realizar-formularios-de-google.jpg',
+    video:
+      'https://docs.google.com/forms/d/e/1FAIpQLSfVlynOBUFV2ViqqykFdi7Lcj5ARBcCSazIY_Gi5SyaeNPqCQ/viewform?usp=sf_link',
   },
   {
     name: 'Rtve en Directo',
@@ -272,8 +274,7 @@ const peliculas = [
       ' Asistencia de personal del 9 de diciembre. Enviado a gerencia, a la propiedad y al departamento de prevención de riesgos laborales',
     poster: '/imagenes/portada_excel.png',
     imagen: '/imagenes/imagen_excel.jpg',
-    video:
-      'https://docs.google.com/spreadsheets/d/1KhBs59ZE4-PwD2AjlLDCD_Au_7TRZnB2/edit?usp=sharing&ouid=110552365265668306985&rtpof=true&sd=true',
+    video: 'https://ttsdemo.com/',
   },
 ];
 let comentario = '';
@@ -387,6 +388,8 @@ const filter = () => {
     miarticulo.setAttribute('src', 'https://www.bing.com/search?q=' + text);
     document.getElementById('frame').style.display = 'block';
     window.scrollTo(0, document.body.scrollHeight);
+   
+    
   
     
     
@@ -415,6 +418,8 @@ function prueba(x) {
   document.getElementById('zona-ayuda').style.display = 'none';
   /* moverse(); */
   window.scrollTo(0, document.body.scrollHeight);
+  
+
 }
 
 
@@ -516,3 +521,5 @@ function vertodo(xx) {
   searchBar.focus();
   
 }
+
+
