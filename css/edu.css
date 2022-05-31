@@ -1,9 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap");
-
 * {
 	box-sizing: border-box;
 }
-
 :root {
     --bg-color: #cfd8dc;
     --text-color: #212121;
@@ -13,7 +11,6 @@
     --fondo-tooltip-narrador:rgb(161, 221, 235);
     --fondobotones:rgb(12, 93, 139);
 }
-
 [data-theme="dark"] {
     --bg-color: #010e14;
     --text-color: #888585;
@@ -22,11 +19,9 @@
     --fondobotones:rgb(68, 112, 138);
      --button-color:rgb(0, 0, 0);
 }
-
 html {
-	font-size: 1.25rem;
+	font-size: 1.3rem;
 }
-
 body {
   font-family: "Roboto";
 	line-height: 0.9;
@@ -39,7 +34,6 @@ body {
   background-position: center center;
   background-size: cover;
 }
-
 #background-video {
   width: 100vw;
   height: 100vh;
@@ -51,45 +45,28 @@ body {
   bottom: 0;
   z-index: -1;
 }
-
-
 ul {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(12em, 1fr));
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12em, 1fr));
 	grid-auto-rows: min-content;
 	grid-column-gap: 1rem;
 	grid-row-gap: 1rem;
 	grid-auto-flow: dense;
 	flex-wrap:wrap;
-  
-  
-  
- 
-  
-  
 }
-
 .row{
    max-width: 90%;
    margin-left: 0.7rem;
-  
-  
- 
 }
-
 .row li {
 	background-color: hsl(0, 3%, 79%);
-  
   list-style:none;
-   border-radius: 1.625rem;
+  border-radius: 1.625rem;
  }
 .row li:hover{
-  
-		background-color:  hsl(0, 0%, 94%);
-	}
-
+ 		background-color:  hsl(0, 0%, 94%);
+}
 .buscador{
-  
   width: 50%;
   height: 1.8rem;
   background: #9e9a9a;
@@ -99,7 +76,6 @@ ul {
   padding: 0 3.5rem 0 1.5rem;
   font-size: 1rem;
 }  
-
 #mensajes{
   width: fit-content;
   margin: 0 auto;
@@ -115,23 +91,21 @@ ul {
   100% {color: #ff0;} /*Otra vez amarillo*/
 }
 .theme{
-  
   color:var(--other-color);
   top:1rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 5vh;
+  height: 4.5vh;
   background-color: rgba(255,255,255,.1);
   border-radius: 2rem;
   margin-right: 1rem;
 }
 #tool-vista,#tool-audio{
-  margin-right: 10px;
-  padding-left: 2rem;
+  font-size: 0.7rem;
+  margin-right: 0.5rem;
+  padding-left: 1rem;
 }
-
-
 .toggle-button {
   -webkit-appearance: none;
   outline: none;
@@ -142,7 +116,6 @@ ul {
   position: relative;
   transition: .4s;
 }
-
 .toggle-button:before{
   content: "";
   position: absolute;
@@ -154,18 +127,14 @@ ul {
   background-color: #bdbdbd;
   transition: .4s;
 }
-
 .toggle-button:checked {
   background-color: #bdbdbd;
 }
-
 .toggle-button:checked:before {
   transform: translate(100%);
   background-color: #212121;
   transition: .4s;
 }
-
-
 .card {
   min-height: 450px;
   background-color: #333;
@@ -180,14 +149,12 @@ ul {
   padding-top: 15px;
   color: #000;
   padding: 0.5rem;
- 
-  
 }
 .segundo{
   display: none;
 }
 .card-anexo {
-   display: none;
+  display: none;
   width: 70vw;
   min-height: 700px;
   background-color: #333;
@@ -201,28 +168,30 @@ ul {
   margin: auto;
   padding-top: 15px;
   color: #000;
-  
 }
 .flex{
   display: flex;
   align-items: center;
- 
-  
 }
 .encuesta{
-    width: 80%;
+  width: 80%;
   height: 80vh;
-   margin:0 auto;
+  margin:0 auto;
   margin-bottom: 3rem;
-   background-color: transparent
+  background-color: transparent
 }
 #frame{
   width: 80%;
   height: 80vh;
-   display:none;
+  display:none;
   margin:0 auto;
-  margin-bottom: 3rem;
-   background-color: rgb(242, 244, 247);
+  margin-bottom: 0.3rem;
+  background-color: rgb(242, 244, 247);
+}
+table{
+  position: absolute;
+  top:70px;
+  left: 40px;
 }
 #botoneras{
   margin-top:1rem;
@@ -230,75 +199,59 @@ ul {
 #menu-cine, #menu-recursos{
   display:none
 }
-
 .card-image {
   position: absolute;
- 
- padding:2.5rem 1rem ;
+  padding:2.5rem 1rem ;
   inset: 0;
   width: 100%; 
   height:100%;
   object-fit: cover;
   opacity: .4;
   transition: transform 1s;
-   border-radius: 4rem;
-  
-  
+  border-radius: 4rem;
 }
 .card-image-anexo {
   position: absolute;
- 
- padding:1rem 1rem ;
+  padding:1rem 1rem ;
   inset: 0;
   width: 100%; 
-   height:100%;
-    object-fit: cover;
+  height:100%;
+  object-fit: cover;
   opacity: .2;
   transition: transform 5s;
-   border-radius: 4rem;
-  
-  
+  border-radius: 4rem;
 }
 .card-video{
   position: absolute;
- 
- padding:3rem 2rem ;
+  padding:3rem 2rem ;
   inset: 0;
   width: 50%; 
   height:50%;
   object-fit: cover;
   opacity: .4;
   transition: transform 1s;
-   border-radius: 4rem;
-  
+  border-radius: 4rem;
 }
-
 .card:hover .card-image {
   transform: scale(1.10);
   opacity: 1;
 }
-
-
 .card-anexo:hover .card-image-anexo {
   transform: scale(1.0);
   opacity: 0.7;
 }
-
 .card-title  {
   position: absolute;
-  max-width: 7rem;
+  max-width: 11rem;
   left: 2rem;
   bottom: 0.1rem;
   font-size: 1rem;
   text-shadow: 2px 2px 10px rgba(0, 0, 0, .5);
-  
 }
 span, p{
   font-size: 0.9rem;
   text-shadow: 2px 2px 10px rgba(0, 0, 0, .5);
-   color:var(--other-color);
-
-  
+  color:var(--other-color);
 }
 textarea{
   text-align: center;
@@ -306,69 +259,51 @@ textarea{
   height: 220px;
   border: none;
   background-color: transparent;
- 
- 
-  
 }
-
 h3 {
   color:var(--other-color);
 }
-
 .container {
   width: 100%;
- 
   margin: 0 auto;
   padding: 0 15px;
-  
- 
 }
 .header-area {
 min-height: 20vh;
-  
+font-size: 0.7rem;
 }
-
-
-/* default css end */
-
-
-/* navbar regular css start */
+/* navbar  */
 .navbar-area {
   background: rgba(0,0,0,.6);
   border-bottom: 1px solid #000;
-   
+  position: fixed; 
+  top: 0;
+  width: 100%; 
+  z-index:1;
 } 
 .site-navbar {
   display: flex;
   justify-content:flex-end;
   align-items: center;
-  
-  
-  
-}
-
+ }
 a.site-logo {
- 
   position: absolute;
-  top: 1rem;
+  top: 0.8rem;
   left: 2rem;
-  font-size: 26px;
+  font-size: 0.9rem;
   font-weight: 800;
   text-transform: uppercase;
- color: var(--other-color);
+  color: var(--other-color);
   text-decoration: none;
-  
 }
 .site-navbar ul {
   margin: 0;
   padding: 0;
   list-style: none;
   display: flex;
-  
 }
 .site-navbar ul li a {
   color: var(--other-color);
-  
   padding: 20px;
   display: block;
   text-decoration: none;
@@ -377,10 +312,7 @@ a.site-logo {
 .site-navbar ul li a:hover {
   background: rgba(255,255,255,.1);
 }
-/* navbar regular css end */
-
-
-/* nav-toggler css start */
+/* nav-toggler*/
 .nav-toggler {
   border: 3px solid #fff;
   padding: 5px;
@@ -415,11 +347,9 @@ a.site-logo {
 .nav-toggler.toggler-open span:after {
   transform: translateY(-3px) rotate(-45deg);
 }
-/* nav-toggler css start */
-
-
-/* intro-area css start */
+/* intro-area css */
 .intro-area {
+  margin-top: 2rem;
   min-height: 15vh;
   display: flex;
   align-items: center;
@@ -436,32 +366,25 @@ a.site-logo {
 .intro-area p {
   font-size: 18px;
 }
-
 .content {
   display: inline-block;
   min-height: 8vh;
   align-items: center;
-  
 }
-
 .mic-checkbox {
   display: none;
 }
-
 .mic-checkbox:checked + .mic-button {
   transform: rotateY(180deg);
 }
-
 .mic-checkbox:checked + .mic-button span{
   display: none;
 }
-
 .button-container {
   perspective: 500px;
   -moz-perspective: 500px;
   -webkit-perspective: 500px;
 }
-
 .mic-button {
   display: flex;
   align-items: center;
@@ -476,17 +399,15 @@ a.site-logo {
   -moz-transform-style: preserve-3d;
   position: relative;
 }
-
 .button-message, .mic {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
 }
-
 .button-message {
   position: absolute;
   width: 50px;
-   color:var(--other-color);
+  color:var(--other-color);
   font-family: 'Montserrat', sans-serif;
   font-weight: bold;
   text-align: center;
@@ -497,7 +418,6 @@ a.site-logo {
   left: 20px;
   top: 20px;
 }
-
 .mic-button-loader {
   position: absolute;
   height: 102px;
@@ -507,13 +427,11 @@ a.site-logo {
   top: -31px;
   left: -50px;
 }
-
 .mic-checkbox:checked + .mic-button > .mic > .mic-button-loader {
   border-top: 3px solid #AA1111;
   border-radius: 100%;
   animation: borderLoader 1.3s 0.2s ease-in-out infinite; 
 }
-
 .mic {
   position: relative;
   top: -11px;
@@ -523,11 +441,9 @@ a.site-logo {
   border-radius: 10px;
   transform: rotateY(180deg);
 }
-
 .mic:after, .mic:before, .mic-base {
   position: absolute;
 }
-
 .mic:after {
   content: "";
   top: 7px;
@@ -539,9 +455,7 @@ a.site-logo {
   border-bottom-left-radius: 110px;
   border-bottom-right-radius: 110px;
   border-top: 0;
-  
-}
-
+ }
 .mic:before {
   content: "";
   top: 33px;
@@ -550,7 +464,6 @@ a.site-logo {
   border-left: 2px solid #fff;
   border-right: 2px solid #fff;
 }
-
 .mic-base {
   top: 46px;
   left: -10px;
@@ -560,18 +473,17 @@ a.site-logo {
 }
 .video{
   margin: 0 auto;
- display:none;
- text-align:center;
- position: relative;
+  display:none;
+  text-align:center;
+  position: relative;
   overflow: hidden;
   width: 40%;
   padding-top: 24.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
- margin-bottom: 5rem;
+  margin-bottom: 5rem;
 }
 .video-ayuda{
   display: block;
 }
-
 .responsive-iframe {
   position: absolute;
   top: 0;
@@ -582,18 +494,14 @@ a.site-logo {
   height: 100%;
   background-color: transparent;
   animation: opacidad 10s ;
-
   border-radius: 2rem;
-  
 }
-
 .tooltip{
   color:var(--text-color);
   font-size:0.9rem;
   padding: 1rem;
   border-radius: 1rem;
   margin:0.3rem
-  
 }
 .tooltip-vista{
   background-color: var(--fondo-tooltip-vista);
@@ -606,12 +514,10 @@ a.site-logo {
   0% {
     opacity: 0;
   }
-
   100% {
     opacity: 1;
   }
 }
-
 
 @keyframes borderLoader {
   from {
@@ -622,12 +528,27 @@ a.site-logo {
   }
 }
 
+.flex-footer {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:center;
+  column-gap: 3rem;
+  background-color: rgb(71, 180, 239);
+  opacity: 0.4;
+  position: absolute;
+  bottom: -40;
+  
+ }
+ .flex-footer p{
+  color: rgb(0, 1, 9);
+ }
 
-
-
-
-/* mobile breakpoint start */
+/* mobile breakpoint  */
 @media screen and (max-width: 767px) {
+  table{
+    display: none;
+  }
   .container {
     max-width: 720px;
   }
@@ -674,24 +595,23 @@ a.site-logo {
     display:none;
   }
   .buscador{
-  width: 70%;
-}
-.video{
-  width: 90%;
+   width: 70%;
+  }
+  .video{
+   width: 90%;
    padding-top: 50.25%; 
- 
-}
-.card-anexo{
+  }
+  .card-anexo{
   min-height: 0;
   height: 400px;
+  }
+  
 }
-  /* navbar css for mobile end */
-}
-/* mobile breakpoint end */
 
 
-@media screen and (min-width: 0px) and (max-width: 200px) {  
-body{
+
+  @media screen and (min-width: 0px) and (max-width: 200px) {  
+  body{
   display:none;
-}
-}
+  }
+}  

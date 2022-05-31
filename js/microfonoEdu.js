@@ -1,9 +1,11 @@
-
+// este archivo controla
 document.addEventListener('DOMContentLoaded', function () {
   if (!annyang) {
-    return alert(
-      'Lo siento, tu navegador no soporta el reconocimiento de voz o no esta configurado',
-    );
+    reconocimientoVoz=false
+     
+     document.getElementById('mensajes').innerText =
+      'tu navegador no permite el reconocimiento de voz';
+      window.scrollTo(0, 0);
   }
   const microfono = false;
 
@@ -22,9 +24,9 @@ document.addEventListener('DOMContentLoaded', function () {
     hola: () => {
       document.getElementById('search-bar').value = '';
 
-      loguearComandoReconocido(`Para aprender más, dí: Comandos`);
+      loguearComandoReconocido(`Para aprender más, puedes decir ayuda`);
       leerComando(
-        'como estás? Soy tu asistente para buscar recursos. Ahora puedes decir comandos',
+        'como estás? Soy tu asistente para buscar recursos.Puedes decir ayuda',
       );
     },
     Comando: () => {
@@ -64,16 +66,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
   annyang.addCallback('result', (frases) => {
     let frasehablada = frases[0]
-    
+   
     
   
     document.getElementById('search-bar').value = frasehablada.trim();
+   annyang.abort()
     leer();
+   
+  
    
   });
 
   const leer = () => {
     
+   
     const u = new SpeechSynthesisUtterance();
     u.text = 'he oído ' + document.getElementById('search-bar').value;
    
@@ -81,11 +87,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
     u.voice = speechSynthesis.getVoices()[0];
 
-    if ((spech === 'si')) {speechSynthesis.speak(u); }
-    searchBar = document.getElementById('search-bar');
-    comentario2 = 'reset';
+     
+    if (spech === 'si') {
+      
+        speechSynthesis.speak(u);
+        
+    }
+         
+      searchBar = document.getElementById('search-bar');
+      comentario2 = 'reset';
     contador = 0;
-    filter();
+    filter()
+    searchBar=""
+   start()
+     
+     
+   
     
   };
  
@@ -102,16 +119,40 @@ miCheckbox.addEventListener('click', function () {
     document.getElementById('modoaudio').checked = true;
     spech="si"
     const u = new SpeechSynthesisUtterance();
-    u.text = 'Soy Susana. Díme hola';
-    microfono = true;
+    if (reconocimientoVoz) {
+    
+      u.text = 'Soy Susana. Díme hola';
+      microfono = true;
+      annyang.abort()
+    } else {
+      u.text = 'Tu navegador no permite el reconocimiento de voz';
+      miCheckbox.checked = false
+     
+ 
+      
+    }
+   
+   
     u.lang = 'es-CO';
 
     u.voice = speechSynthesis.getVoices()[0];
-
-    if ((spech === 'si')) { speechSynthesis.speak(u);
-    }
     
-    start();
+   if (spech === 'si') {
+     setTimeout(function () {
+       speechSynthesis.speak(u);
+       u.text = ""
+       searchBar=""
+     }, 1000);
+   }
+   
+        
+    document.getElementById('search-bar').value = '';
+    searchBar.value = '';
+      setTimeout(function () {
+        start();
+        u.text = '';
+      }, 1000);
+   
     
     
   } else {
@@ -125,27 +166,43 @@ miCheckbox.addEventListener('click', function () {
 
     u.voice = speechSynthesis.getVoices()[0];
 
-    if ((spech === 'si')) {speechSynthesis.speak(u);
-    }
+    if (spech === 'si') {
+      setTimeout(function () {
+        speechSynthesis.speak(u);
+      
+      }, 2000);;
+  }
   }
 });
 
 const leerComando = (mensaje) => {
+ annyang.abort()
  
   const u = new SpeechSynthesisUtterance();
   u.text = mensaje;
   
   u.lang = 'es-CO';
 
-  u.voice = speechSynthesis.getVoices()[0];
+ 
 
   if (spech === 'si') {
-    speechSynthesis.speak(u);
+      setTimeout(function () {
+        speechSynthesis.speak(u);
+      
+      }, 2000);;
   }
   
   searchBar = mensaje;
   comentario = '';
   comentario2 = '';
+  document.getElementById('search-bar').value = "";
+  searchBar.value = ""
+ 
+    setTimeout(function () {
+      start();
+      u.text=""
+    }, 7000);
+  
   
   document.getElementById('mensajes').innerText =
   'TE ESTOY RESPONDIENDO, SUBE EL VOLUMEN';

@@ -1,53 +1,53 @@
-<!------------------------------------------------------------------------------------------------------->
-<!-- Ejercicio de E.Cabrera para curso Web development de General Assembly 2022 ------------------------->
-<!-- ESTE DOCUMENTO Y LOS DEMAS, ESTAN DEMASIADO COMENTADOS POR SER MI PRIMERA PRESENTACION ------------->
-<!------------------------------------------------------------------------------------------------------->
+<!-------------------------------------------------------------------------------------------------------------------------------------->
+<!-- Ejercicio de E.Cabrera para curso Web development de General Assembly 2022 -------------------------------------------------------->
+<!-- ESTE DOCUMENTO Y LOS DEMAS, ESTAN DEMASIADO COMENTADOS POR SER MI PRIMERA PRESENTACION -------------------------------------------->
+<!-------------------------------------------------------------------------------------------------------------------------------------->
 <!DOCTYPE html>
-<!---------------------- la página contiene los textos en español --------------------------------------->
+<!---------------------- la página contiene los textos en español lang="es"---------------------------------------------------------------------->
 <html lang="es">
   <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <!------------------------------------------------------------------------------------------------->
-      <!-- ya sé que este titulo no es nada bueno para posicionamieto seo (es un ejercicio básico) ------>
-      <!------------------------------------------------------------------------------------------------->
+      <!-------------------------------------------------------------------------------------------------------------------------------->
+      <!-- ya sé que este titulo no es nada bueno para posicionamieto seo (es un ejercicio básico) ------------------------------------->
+      <!-------------------------------------------------------------------------------------------------------------------------------->
     <title>3 días con Susana</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
       integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" 
       crossorigin="anonymous">
-      <!-- index.ccs importa contenido de otros archivos, incluido normalización de navegadores --------->
+      <!-- index.ccs importa contenido de otros archivos, incluido normalización de navegadores ---------------------------------------->
     <link rel="stylesheet" href="/css/index.css">
   </head>
-      <!------------------------------------------------------------------------------------------------->
-      <!-- Fin de la Cabeza y comienzo del cuerpo ------------------------------------------------------->
-      <!------------------------------------------------------------------------------------------------->
+      <!-------------------------------------------------------------------------------------------------------------------------------->
+      <!-- Fin de la Cabeza y comienzo del cuerpo -------------------------------------------------------------------------------------->
+      <!-------------------------------------------------------------------------------------------------------------------------------->
   <body>
-      <!-- mi header tiene diferentes areas especificadas por distintas clases -------------------------->
+      <!-- mi header tiene diferentes areas especificadas por distintas clases --------------------------------------------------------->
     <header class="header-area">
-      <!-- Se carga un un video de fondo (local en carpeta) para modo claro.----------------------------->
+      <!-- Se carga un un video de fondo (local en carpeta) para modo claro.(hay un opción de modo oscuro en el proyecto---------------->
       <video id="background-video" autoplay loop muted >
         <source src="./videos/Clouds.mp4" type="video/mp4">
       </video>
-      <!-- zona o sección donde se encuentra la navegación y el logo ------------------------------------>
+      <!-- zona o sección donde se encuentra la navegación y el logo ------------------------------------------------------------------->
       <div class="navbar-area">
         <div class="container">
         <nav class="site-navbar">
-          <!-- colocación del logo (desapare en determinado tamaño) -->
+          <!-- colocación del logo (desapare en determinado tamaño) -------------------------------------------------------------------->
           <a href="#" class="site-logo">COSAS DE EDU </a>
-          <!-- incluido en navegación,la clase theme se usa para un Toogle button(modo claro/oscuro------>
+          <!-- incluido en navegación,la clase theme se usa para un Toogle button(modo claro/oscuro------------------------------------->
           <div class="theme">
             <p id="tool-vista" >Vista</p>
             <input type="checkbox" class="toggle-button" id="modovista">
             <p style="margin-left:20px;"></p>
           </div>
-          <!-- incluido en la navegación, la clase theme se usa para un Toogle button (narrador)--------->
+          <!-- incluido en la navegación, la clase theme se usa para un Toogle button (narrador)---------------------------------------->
           <div class="theme">
             <p id="tool-audio">A.Spech</p>
             <input type="checkbox" class="toggle-button"  id="modoaudio">
             <p style="margin-left:20px;"></p>
           </div>
-          <!-- Sitio para la tres anclas (el logo de arriba tamnien lo lleva) ---------------------------->
+          <!-- Sitio para la tres anclas (el logo de arriba tamnien lo lleva) ---------------------------------------------------------->
           <div>
             <ul>
               <li><a href="#" onclick="vertodo('cine')">Cine</a></li>
@@ -55,23 +55,31 @@
               <li><a href="#" onclick="vertodo('como se hizo')">Como se hizo</a></li>
             </ul>
           </div> 
-          <!-- navegación menu hamburguesa exclusivo para la versión mobile ------------------------------>
+          <!-- navegación menu hamburguesa exclusivo para la versión mobile ------------------------------------------------------------>
           <button class="nav-toggler">
             <span></span>
           </button>
           </nav>
         </div>
       </div>
-      <!-- zona de titulo (h1), un texto de ayuda, un buscador y un botón que activa el microfono --------->
+      <!-- zona de titulo (h1), un texto de ayuda, un buscador, guitget hora y un botón que activa el microfono -------------------------->
       <div class="intro-area">
         <div class="container">
-          <!-- TITULO (H1) DESCRIPTIVO Y COINCIDENTE CON TITULO HEAD -------------------------------------->
+          
+          <!-- gidget reloj analogico (posicion absoluta debajo del logo ---------------------------------------------------------------->
+          <table>
+              <tr><td style="text-align: center;"><canvas id="canvas_tt6282e69d0e727" width="125" height="125"></canvas></td></tr>
+              <tr><td style="text-align: center; font-weight: bold"><a href="#" style="text-decoration: none" class="clock24" id="tz24-1652745885-c1141-eyJzaXplIjoiMTI1IiwiYmdjb2xvciI6IjAwOTlGRiIsImxhbmciOiJlcyIsInR5cGUiOiJhIiwiY2FudmFzX2lkIjoiY2FudmFzX3R0NjI4MmU2OWQwZTcyNyJ9" title="Madrid hora local" target="_blank" rel="nofollow"></a></td></tr>
+          </table>
+          <script type="text/javascript" src="//w.24timezones.com/l.js" async></script>
+          
+          <!-- TITULO (H1) DESCRIPTIVO Y COINCIDENTE CON TITULO HEAD --------------------------------------------------------------------->
           <h1>3 días con Susana</h1>
           <p id="mensajes">Escribe o dicta tu petición a Susana</p>
           <!-- buscador por texto (y tambien recibe dictado del Mic.) -->
           <input type="text" class="buscador" id="search-bar"  autofocus placeholder="Search Name, Word.." />
-          <!-- contenido del botón utilzado para activar y desactivae el microfono ------------------------>
-          <!-- he reutilzado un código ajeno para realizar el botón y su transición ----------------------->
+          <!-- contenido del botón utilzado para activar y desactivae el microfono ------------------------------------------------------->
+          <!-- he reutilzado un código ajeno para realizar el botón y su transición ------------------------------------------------------>
           <div class="content">
             <div class="button-container">
             <input type="checkbox" id="micButton" class="mic-checkbox">
@@ -93,13 +101,13 @@
     </header>
     <!-- Fin de la cabecera y comiendo de contenido principal (main) -->
     <main>
-      <!-------------------------- PRINCIPAL ------------------------------------------------------------------------>
-      <!-- sección de botones de decisión justo debajo del titulo y el buscador ------------------------------------->
+      <!-------------------------- PRINCIPAL ------------------------------------------------------------------------------------------->
+      <!-- sección de botones de decisión justo debajo del titulo y el buscador -------------------------------------------------------->
       <section id="botoneras"> 
         <ul id="menu" class="button-group">
           <li><button onclick="vertodo('cine')" class="small button">PELICULAS</button></li>
           <li><button onclick="vertodo('recursos')" class="small button">RECURSOS</button></li>
-          <li><button onclick="vertodo('como se hízo') "class="small button">COMO SE HIZO</button></li>
+          <li><button onclick="vertodo('como se hizo') "class="small button">COMO SE HIZO</button></li>
           <li><button onclick="vertodo('dame tu opinión')"class="small button">DAME TU OPINION</button></li>
 
           
@@ -127,23 +135,25 @@
 
         </ul>
       </section>
-      <!------------------------------------------------------------------------------------------------------------->
-      <!-- esta sección albergará el contenido dinámico creado en javascript ---------------------------------------->
+      <!------------------------------------------------------------------------------------------------------------------------------>
+      <!-- esta sección albergará el contenido dinámico creado en javascript --------------------------------------------------------->
       <section>
         <div class="row">
           <ul  id="list">
-          <!-- justo dentro de esta (ul) se van quitando o añadiendo (li) dinámicamente según petición -->
+          <!-- justo dentro de esta (ul) se van quitando o añadiendo (elementos) dinámicamente según petición ------------------------>
           </ul> 
         </div>
       <section>
+          <!----------------------------------- en zona vista tenemos el iframe donde presento el contenido  ------------------------->
           <div id="zona-vista" class="flex">
+             <!-- loading lazy es una técnica popular para solicitar gradualmente las imágenes a medida que aparecen ----------------->
             <iframe id="frame"  src=""  loading="lazy" allow="fullscreen"></iframe>
           </div>
       </section>
       </section>
       <!-- zona de videos de reproducción -->
       <section>
-        <!-- iframe que albergará reproducción de video principal ----------------------------------------------------->
+        <!-- iframe que albergará reproducción de video principal -------------------------------------------------------------------->
         <div class="video" id="video">
           <iframe id="iframe"  class="responsive-iframe" src="" frameborder="0" allowfullscreen allow='autoplay'></iframe>
         </div>
@@ -154,21 +164,21 @@
           </div> 
         </div>  
       </section>   
-      
-      <!-- Búsqueda Google -->
-
-<!-- Búsqueda Google -->
-      
     </main>	
-      <!------------------------------------------------------------ ARCHIVOS JS UTILIZADOS (PROPIOS Y AJENOS) ------>
-      <script src="/js/annyang.min.js"></script>                 <!-- Libreria para reconocimiento de voz ----------->
-      <script src="https://unpkg.com/@popperjs/core@2"></script> <!---Libreria necesaria para Tools-Tip usados ------>
-      <script src="https://unpkg.com/tippy.js@6"></script>       <!---Libreria para generar Tool-tips --------------->
-      <script src="/js/microfonoEdu.js"></script>                <!-- Personal de reconocimiento y text to spech ---->
-      <script src="/js/edulearningbusqueda.js"></script>         <!-- Personal de busquedas para el asistente ------->
-      <script src="/js/edulearningrespuestas.js"></script>       <!-- Personal de respuestas determidas ------------->
-      <script src="/js/edulearningacciones.js"></script>         <!-- Personal de acciones programadas -------------->
-      <script src="/js/eduRecursos.js"></script>                <!-- Personal de contenido general (Articulos)------>
-      <script src="/js/eduTooltips.js"></script>                 <!-- Personal para albergar los Tool-tips creados -->
+    <footer class="flex-footer">
+      <p>© Estudiantes General Assembly 2022</p>
+      <p>Eduardo Cabrera Blázquez</p>
+    </footer>
+    <!------------------------------------------------------------ ARCHIVOS JS UTILIZADOS (PROPIOS Y AJENOS) -------------->
+    <script src="/js/annyang.min.js"></script>                 <!-- Libreria para reconocimiento de voz ------------------->
+    <script src="https://unpkg.com/@popperjs/core@2"></script> <!---Libreria necesaria para Tools-Tip usados -------------->
+    <script src="https://unpkg.com/tippy.js@6"></script>       <!---Libreria para generar Tool-tips ----------------------->
+    <script src="/js/microfonoEdu.js"></script>                <!-- Personal de reconocimiento y text to spech ------------>
+    <script src="/js/edulearningbusqueda.js"></script>         <!-- Personal de busquedas para el asistente --------------->
+    <script src="/js/edulearningrespuestas.js"></script>       <!-- Personal de respuestas determidas --------------------->
+    <script src="/js/edulearningacciones.js"></script>         <!-- Personal de acciones programadas ---------------------->
+    <script src="/js/eduRecursos.js"></script>                 <!-- Personal de contenido general (Articulos)-------------->
+    <script src="/js/eduTooltips.js"></script>                 <!-- Personal para albergar los Tool-tips creados ---------->
+      
   </body>
 </html>

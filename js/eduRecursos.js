@@ -1,31 +1,26 @@
+//fichero principal Js y de soporte a datos y busquedas
 
-
-// define all UI variable
+// Definición de variables
 const navToggler = document.querySelector('.nav-toggler');
 const navMenu = document.querySelector('.site-navbar ul');
 const navLinks = document.querySelectorAll('.site-navbar a');
 let miCheckboxAudio = document.getElementById('modoaudio');
-let spech = "si"
+let spech = "no"
+let microfono=false
+let reconocimientoVoz=true
 let idsegundocard = "";
 let idvideo=""
 let veces = 0;
 let ultimapelcula = ""
 let miarticulo = document.getElementById('frame');
 let mivideoportada = document.getElementById('iframe2');
-let urlportada = './videos/primeraFase.mp4';
+let urlportada = './videos/tutorial001.mp4';
 mivideoportada.setAttribute('src', urlportada);
- 
 
-
-
-
-// load all event listners
+// la siguiente linea llama a una funcion de escucha 
 allEventListners();
 
-
-
-
-// functions of all event listners
+// funcion que contiene escuchas para  eventos de la navegación
 function allEventListners() {
   // toggler icon click event
   navToggler.addEventListener('click', togglerClick);
@@ -33,7 +28,7 @@ function allEventListners() {
   navLinks.forEach((elem) => elem.addEventListener('click', navLinkClick));
 }
 
-// togglerClick function
+// esta función cambia la clase para el navegador
 function togglerClick() {
   navToggler.classList.toggle('toggler-open');
   navMenu.classList.toggle('open');
@@ -46,15 +41,200 @@ function navLinkClick() {
   }
 }
 
-
-
+// variable para el campo de entrada del teclado y para la lista que se creará dinamicamente
 let searchBar = document.getElementById('search-bar');
 const list = document.getElementById('list');
 searchBar.focus();
 
-
+// array de objetos para recursos (tanto peliculas como cualquier otro contenido)
+// originalmente pensé en solo poner películas por lo que el par (video:recurso) de usa para todos los fines
+// luego se recorreran estos objetos mediante un filtro
 
 const peliculas = [
+  {
+    name: 'La ciudad perdida(2022)',
+    year: '2022',
+    campolibre:
+      'cine Sandra Bullock Aventura. Comedia. Acción  Comedia romántica Aventuras ',
+    sinopsis:
+      'La carrera literaria de la brillante y algo huraña escritora de novelas Loretta Sage (Sandra Bullock) ha girado en torno a las novelas románticas de aventuras que, ambientadas en lugares exóticos, protagoniza un atractivo galán cuya imagen aparece reproducida en todas las portadas, y que en la vida real corresponde a Alan (Channing Tatum), un modelo que ha centrado su carrera en personificar al novelesco aventurero. Durante una gira para promocionar su nuevo libro junto a Alan, Loretta es raptada por un excéntrico multimillonario (Daniel Radcliffe), con la intención de que la autora le guíe hasta el tesoro de la antigua ciudad perdida sobre el que gira su último relato. Deseoso de demostrar que puede ser un héroe en la vida real, y no simplemente en las páginas de sus obras de ficción, Alan se lanza al rescate de la novelista.',
+    poster:
+      'https://www.neocine.es/recurso/articulo/la_ciudad_perdida_91571.jpg',
+    imagen:
+      'https://kinefilia.files.wordpress.com/2022/04/la-ciudad-perdida-1.jpg?w=584',
+    video: (src = '//ok.ru/videoembed/3321841322750'),
+  },
+
+  {
+    name: 'Camera café La película (2022)',
+    year: '2022',
+    campolibre: 'cine Comedia Trabajo/empleo Arturo Valls',
+    sinopsis:
+      'Quesada, Julián, Marimar, Cañizares, Victoria y compañía se enfrentarán a una crisis que está a punto de hundir la empresa y, lo que es peor, deberá salvarla su nuevo director, que es nada más y nada menos que el rey del escaqueo, Quesada.',
+    poster:
+      'https://pics.filmaffinity.com/camera_cafe_la_pelicula-806236522-large.jpg',
+    imagen:
+      'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/camera-cafe-la-pelicula-1646137464.jpg',
+    video: (src = '//ok.ru/videoembed/3331835562750'),
+  },
+
+  {
+    name: 'Casper',
+    year: '1995',
+    campolibre:
+      'cine Fantástico. Comedia. Infantil Sobrenatural. Casas encantadas. Fantasmas. Comedia de terror. Cine familiar',
+    sinopsis:
+      'La señora Crittenden (Cathy Moriarty) contrata al doctor Harvey (Bill Pullman) para que libere su mansión de los cuatro fantasmas que la habitan. Látigo, Tufo y Gordy no toleran a los mortales dentro de la casa y su negro sentido del humor ahuyenta a los más audaces. Su sobrino Casper, en cambio, es un joven amistoso que está harto de sus tíos. Harvey se presenta en la mansión con su hija Kat (Christina Ricci), una soñadora adolescente. Ella y Casper simpatizan inmediatamente, a pesar de que tienen problemas para relacionarse. De Casper huye todo el mundo porque es un fantasma; de Kat también, en cuanto se enteran de la profesión de su padre. El fantasma y la chica son dos almas gemelas que viven en continuo conflicto con sus respectivos parientes',
+    poster: 'https://www.aceprensa.com/wp-content/uploads/1995/07/8839-0.jpg',
+    imagen:
+      'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/casper-25-aniversario-curiosidades-8-1589893439.jpg',
+    video: (src = '//ok.ru/videoembed/2821656480438'),
+  },
+
+  {
+    name: 'El retorno del Jedi',
+    year: '1983',
+    campolibre:
+      'cine Ciencia ficción. Aventuras  Aventura espacial. Harrison Ford star wars',
+    sinopsis:
+      'Para ir a Tatooine y liberar a Han Solo, Luke Skywalker y la princesa Leia deben infiltrarse en la peligrosa guarida de Jabba the Hutt, el gángster más temido de la galaxia. Una vez reunidos, el equipo recluta a tribus de Ewoks para combatir a las fuerzas imperiales en los bosques de la luna de Endor. Mientras tanto, el Emperador y Darth Vader conspiran para atraer a Luke al lado oscuro, pero el joven está decidido a reavivar el espíritu del Jedi en su padre. La guerra civil galáctica termina con un último enfrentamiento entre las fuerzas rebeldes unificadas y una segunda Estrella de la Muerte, indefensa e incompleta, en una batalla que decidirá el destino de la galaxia',
+    poster: 'https://m.media-amazon.com/images/I/7193hhHCbhL._AC_SY679_.jpg',
+    imagen:
+      'https://cdn.cinencuentro.com/wp-content/uploads/2017/10/return-of-the-jedi-endor-236824-1280x0-950x523.jpg',
+    video: (src = '//ok.ru/videoembed/3335702710865'),
+  },
+
+  {
+    name: 'Indiana Jones y el Reino de la calavera de cristal',
+    year: '2008',
+    campolibre:
+      'cine Aventuras. Acción. Ciencia ficción  Años 50. Guerra Fría. Harrison Ford',
+    sinopsis:
+      'Año 1957, en plena guerra fría. Indiana Jones (Harrison Ford) consigue de milagro salir ileso de una explosiva situación con unos agentes soviéticos en un remoto desierto al que llegó detenido junto a su amigo Mac (Ray Winstone). El decano de la Universidad (Jim Broadbent) le confiesa a su amigo el profesor Jones que las últimas misiones de Indy han fracasado, y que está a punto de ser despedido. Mientras tanto, Indiana conoce a Mutt (Shia LaBeouf), un joven rebelde que le propone un trato: si le ayuda a resolver un problema personal, él, a cambio, le facilitaría uno de los descubrimientos más espectaculares de la historia: la Calavera de Cristal de Akator, que se encuentra en un lugar remoto del Perú. Pero los agentes soviéticos, dirigidos por la fría y bella Irina Spalko (Cate Blanchett), tienen el mismo objetivo',
+    poster:
+      'https://es.web.img2.acsta.net/medias/nmedia/18/66/69/78/20168730.jpg',
+    imagen:
+      'https://imagenes.20minutos.es/files/og_thumbnail/uploads/imagenes/2018/05/06/indiana-jones-and-the-kingdom-of-the-crystal-skull-720p-www-yify-174232-1280x0.jpg',
+    video: (src = '//ok.ru/videoembed/1589419510345'),
+  },
+
+  {
+    name: 'Los viajes de Gulliver (2010)',
+    year: '2010',
+    campolibre: 'cine Aventuras. Fantástico. Comedia  Cuentos.  Cine familiar',
+    sinopsis:
+      'Lemuel Gulliver (Jack Black), un aspirante a escritor que trabaja como repartidor en un importante periódico de Nueva York, sueña con escribir libros de viajes. Toma entonces la decisión de navegar hacia al Triángulo de las Bermudas, pero una terrible tormenta lo arrastra hasta una isla pérdida que está habitada por seres diminutos, los liliputienses. Después de un comienzo no muy amistoso, el gigante Gulliver se gana la confianza y se convierte en fuente de inspiración para sus nuevos amigos. Bajo sus órdenes, los liliputienses consiguen derrotar a sus enemigos de la isla vecina. Sin embargo, Gulliver aún tendrá que saldar cuentas con sus propios defectos para poder salir, por fin, de su limitado mundo',
+    poster:
+      'https://diariodeunacinefila.files.wordpress.com/2014/09/poster-los-viajes-de-gulliver-2010.jpg',
+    imagen:
+      'https://www.tshirtsonscreen.com/wp-content/uploads/2014/12/gulliverstravelsruckerparkbasketballshirt-e1449681748848.jpg',
+    video: (src = '//ok.ru/videoembed/354959100547'),
+  },
+  {
+    name: 'A.I.Inteligencia Artificial [2001]',
+    year: '2001',
+    campolibre:
+      'cine Ciencia ficción. Fantástico. Drama  Robots. Inteligencia artificial',
+    sinopsis:
+      'En un mundo futuro, los seres humanos conviven con sofisticados robots llamados Mecas. Los sentimientos son lo único que diferencia a los hombres de las máquinas. Pero, cuando a un robot-niño llamado David se le programa para amar, los hombres no están preparados para las consecuencias, y David se encontrará solo en un extraño y peligroso mundo.',
+    poster:
+      'https://pics.filmaffinity.com/A_I_Inteligencia_Artificial-438389361-large.jpg',
+    imagen:
+      'https://pics.filmaffinity.com/A_I_Inteligencia_Artificial-445242970-large.jpg',
+    video: (src = '//ok.ru/videoembed/1726662052606'),
+  },
+
+  {
+    name: 'La Milla verde',
+    year: '1999',
+    campolibre:
+      'cine Drama. Fantástico  Drama carcelario. Sobrenatural. Años 30 Tom Hanks',
+    sinopsis:
+      'Ambientada en el sur de los Estados Unidos, en plena Depresión. Paul Edgecomb es un funcionario de prisiones encargado de vigilar la "Milla Verde", un pasillo que separa las celdas de los reclusos condenados a la silla eléctrica. John Coffey, un gigantesco hombre negro acusado de asesinar brutalmente a dos hermanas de nueve años, está esperando su inminente ejecución. Tras una personalidad ingenua e infantil, Coffey esconde un prodigioso don sobrenatural. ',
+    poster: 'https://pics.filmaffinity.com/La_milla_verde-631715339-large.jpg',
+    imagen: 'https://i.ytimg.com/vi/kdWKOKl74VQ/maxresdefault.jpg',
+    video: (src = '//ok.ru/videoembed/970248686214'),
+  },
+
+  {
+    name: 'Casablanca',
+    year: '1942',
+    campolibre:
+      'cine antiguo películas antiguas  Ingrid Bergman  Humphrey Bogart Drama. Romance  Drama romántico. II Guerra Mundial. África. Nazismo',
+    sinopsis:
+      'Años 40. A consecuencia de la Segunda Guerra Mundial, Casablanca era una ciudad a la que llegaban huyendo del nazismo gente de todas partes: llegar era fácil, pero salir era casi imposible, especialmente si el nombre del fugitivo figuraba en las listas de la Gestapo, que presionaba a la autoridades francesas al mando del corrupto inspector Renault.',
+    poster:
+      'http://1.bp.blogspot.com/-Qi_4N8D2Ufs/TXoBQhJ2lEI/AAAAAAAADdw/3CzQyfOzzNg/s00/189557_1020_A.jpg',
+    imagen:
+      'https://i0.wp.com/frasesdelapelicula.com/wp-content/uploads/2011/10/casablanca.jpg?fit=1200%2C630&ssl=1',
+    video: (src = '//ok.ru/videoembed/36659530307'),
+  },
+
+  {
+    name: 'Cantando bajo la lluvia',
+    year: '1952',
+    campolibre:
+      'cine Musical. Comedia. Romance Cine dentro del cine. Años 20. Baile. Sátira musicál antigua películas antiguas',
+    sinopsis:
+      'Antes de conocer a la aspirante a actriz Kathy Selden (Debbie Reynolds), el ídolo del cine mudo Don Lockwood (Gene Kelly) pensaba que lo tenía todo: fama, fortuna y éxito. Pero, cuando la conoce, se da cuenta de que ella es lo que realmente faltaba en su vida. Con el nacimiento del cine sonoro, Don quiere filmar musicales con Kathy, pero entre ambos se interpone la reina del cine mudo Lina Lamont (Jean Hagen)',
+    poster:
+      'https://soundtrackfest.com/wp-content/uploads/2019/07/MN-2019-08-01-%E2%80%98Cantando-bajo-la-lluvia%E2%80%99-en-concierto-con-la-BOS-en-Bilbao.jpg',
+    imagen: 'https://i.blogs.es/a681ef/cantando-lluvia/1366_2000.jpeg',
+    video: (src = '//ok.ru/videoembed/2215492389549'),
+  },
+
+  {
+    name: 'Juana de Arco',
+    year: '1999',
+    campolibre:
+      'cine Drama  Histórico. Biográfico. Siglo XV. Religión. Juana de Arco',
+    sinopsis:
+      'Juana es una muchacha profundamente religiosa, cristiana. Después de tener su primera visión, vuelve a su hogar y se encuentra con que los ingleses han matado a su familia. Algunos años después, completamente convencida de que Dios le ha encomendado la misión de expulsar a los ingleses de Francia, va a ver al Delfín, el futuro Carlos VII, que le proporciona tropas para levantar el cerco de Orleáns.',
+    poster: 'https://pics.filmaffinity.com/Juana_de_Arco-278470264-large.jpg',
+    imagen:
+      'https://r1.abcimg.es/resizer/resizer.php?imagen=https%3A%2F%2Fstatic4.abc.es%2Fmedia%2Fpeliculas%2F000%2F000%2F409%2Fjuana-de-arco-de-luc-besson-2.jpg&nuevoancho=620&medio=abc',
+    video: (src = '//ok.ru/videoembed/1279930075779'),
+  },
+
+  {
+    name: 'Simbad: la Leyenda de los Siete Mares',
+    year: '2003',
+    campolibre:
+      'cine Animación. Aventuras. Fantástico. Infantil Piratas. Mitología. Aventuras marinas',
+    sinopsis:
+      'Un marinero persa llamado Simbad está en una búsqueda para encontrar el mágico y legendario Libro de la Paz, un misterioso artefacto que Eris, la malvada diosa griega del caos, finalmente lo ha incriminado por robar. Si fracasa en esta misión, su amigo de la infancia, el príncipe Proteus de Siracusa, se someterá a la pena de muerte de Sindbad, mientras que Eris se afianza en el poder deseado en el mundo de los mortales.',
+    poster: 'https://es.web.img2.acsta.net/pictures/16/02/19/13/17/564558.jpg',
+    imagen: 'https://pbs.twimg.com/media/EOMiWIXXUAAWZiM.jpg',
+    video: (src = '//ok.ru/videoembed/3084891654838'),
+  },
+
+  {
+    name: 'Ángeles con caras sucias',
+    year: '1938',
+    campolibre:
+      'cine negro. Thriller  Mafia películas antiguas James Cagney  Humphrey Bogart',
+    sinopsis:
+      'Un sacerdote presencia impotente cómo los niños marginados de su parroquia sucumben a las malas influencias de un criminal que fue compañero suyo de la infancia. Con el paso del tiempo, los dos hombres siguieron caminos muy diferentes: uno abrazó el sacerdocio y el otro se convirtió en un gángster.',
+    poster: 'https://m.media-amazon.com/images/I/81EYr6rgExL._SY445_.jpg',
+    imagen:
+      'https://es.web.img3.acsta.net/videothumbnails/14/02/10/13/08/221742.jpg',
+    video: '//ok.ru/videoembed/1463951690333',
+  },
+
+  {
+    name: 'La Lista de Schindler',
+    year: '1993',
+    campolibre:
+      'cine drama holocausto nazis nazismo guerra mundial bélico niel neelsen',
+    sinopsis:
+      'Septiembre de 1939. Los nazis invaden Polonia. Los judíos son internados en guetos y enviados a campos de concentración. El empresario alemán Oskar Schindler (Liam Neeson), un dandy oportunista con talento para las relaciones públicas, aprovecha esta situación para prosperar económicamente. Comienza así una interesada relación con los militares nazis más poderosos para poner en marcha una fábrica en Cracovia, cuya mano de obra serán operarios judíos procedentes de los campos de concentración.',
+    poster:
+      'https://pics.filmaffinity.com/schindler_s_list-473662617-large.jpg',
+    imagen:
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTi-f0qYQL07RWzUVGjmwl_uRTxXHAWH5ue4w&usqp=CAU',
+    video: '//ok.ru/videoembed/341009828484',
+  },
+
   {
     name: 'Matar un ruiseñor',
     year: '1962',
@@ -70,7 +250,8 @@ const peliculas = [
   {
     name: 'Los inmortales',
     year: '1986',
-    campolibre: 'cine antiguas acción aventuras fantasía ciencia ficción',
+    campolibre:
+      'cine antiguas acción aventuras fantasía ciencia ficción solo puede quedar uno',
     sinopsis:
       'Los Inmortales son seres de una raza especial que sólo pueden morir decapitados entre sí. Viven desde hace siglos entre los hombres, pero ocultando su identidad. Unos defienden el Bien, otros, el Mal. Una maldición los obliga a luchar entre sí hasta que sólo quede uno de ellos. El escocés Connor MacLeod (Christopher Lambert) es uno de los supervivientes del clan de los Inmortales que ha llegado hasta nuestros días',
     poster: 'https://m.media-amazon.com/images/I/512YWZSyd7L.jpg',
@@ -116,16 +297,31 @@ const peliculas = [
     video: '//ok.ru/videoembed/1301235829321',
   },
   {
-    name: 'El Mago de Oz',
-    year: '1939',
-    campolibre: 'cine Drama terror intriga',
+    name: 'Padre no hay más que uno',
+    year: '2019',
+    campolibre: 'cine Comedia Comedias película española cine español',
     sinopsis:
-      'Dorothy, que sueña con viajar "más allá del arco iris", ve su deseo hecho realidad cuando un tornado se la lleva con su perrito al mundo de Oz. Pero la aventura sólo acaba de comenzar: tras ofender a la Malvada Bruja del Oeste (Margaret Hamilton), aconsejada por la Bruja Buena del Norte (Billie Burke), la niña se dirige por el Camino Amarillo hacia la Ciudad Esmeralda, donde vive el todopoderoso Mago de Oz, que puede ayudarla a regresar a Kansas. Durante el viaje, se hace amiga del Espantapájaros (Ray Bolger), el Hombre de Hojalata (Jack Haley) y el León Cobarde (Bert Lahr). El Espantapájaros desea un cerebro, el Hombre de Hojalata quiere un corazón, y el León, el coraje que le falta; convencidos de que el Mago también les puede ayudar a ellos, deciden unirse a Dorothy en su odisea hasta la Ciudad Esmeralda',
-    poster: 'https://es.web.img2.acsta.net/pictures/14/04/02/11/44/157777.jpg',
+      'Javier es lo que se ha bautizado como un “marido-cuñado”. Ese que sin ocuparse en absoluto de lo que supone el cuidado de la casa y de los niños, sabe perfectamente qué es lo que hay que hacer, y que continuamente regala a su mujer frases del tipo: “es que no te organizas”, o “no te pongas nerviosa”, ya que considera que su desbordada mujer se ahoga en un vaso de agua. Javier tendrá que enfrentarse a la realidad que supone bregar con cinco hijos (de entre cuatro y doce años) cuando su mujer decide irse de viaje y dejarle solo con ellos. La caótica situación que se produce en casa les dará, al mismo tiempo, la oportunidad de pasar más tiempo juntos y conocerse mejo',
+    poster:
+      'https://pics.filmaffinity.com/padre_no_hay_mas_que_uno-911130707-large.jpg',
     imagen:
-      'https://img.europapress.es/fotoweb/fotonoticia_20210210101947_420.jpg',
-    video: '//ok.ru/videoembed/29010627280',
+      'https://www.diariobahiadecadiz.com/noticias/wp-content/uploads/2019/08/trailerpadrenohay-1-750x430.jpg ',
+    video: '//ok.ru/videoembed/1442452933218',
   },
+
+  {
+    name: 'Padre no hay más que uno 2',
+    year: '2020',
+    campolibre: 'cine Comedia Comedias película española cine español',
+    sinopsis:
+      'Después de que Javier (Santiago Segura), padre de cinco hijos, haya vivido y superado la experiencia de enfrentarse a la caótica realidad que supone quedarse solo con ellos y poner en práctica la conciliación familiar, las cosas parecen ir sobre ruedas. Claro que que una inesperada noticia lo va a poner todo patas arriba… Nada menos que la llegada de la suegra (Loles León), que supondrá un nuevo reto familiar',
+    poster:
+      'https://www.antena3.com/newa3flash/modulos_blancos/atresmedia_cine/Padre_no_hay_mas_Que_uno_2.png',
+    imagen:
+      'https://s.yimg.com/ny/api/res/1.2/St4AOGgp9bhP_r6sBIs_Xg--/YXBwaWQ9aGlnaGxhbmRlcjt3PTY0MDtoPTMxOQ--/https://s.yimg.com/uu/api/res/1.2/PpbWzzzSIpH7d4ld8SL9CA--~B/aD01Mzc7dz0xMDc2O2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/es/fotogramas_81/0af852b6a990e624df3e437914b9a7b5',
+    video: '//ok.ru/videoembed/1644501928509',
+  },
+
   {
     name: 'Más alla de los Sueños',
     year: '1998',
@@ -164,7 +360,7 @@ const peliculas = [
   {
     name: '8 Apellidos Vascos',
     year: '2014',
-    campolibre: 'cine comedia españolas romance ocho apellidos',
+    campolibre: 'cine comedia españolas romance ocho apellidos vascos',
     sinopsis:
       'Rafa (Dani Rovira) es un joven señorito andaluz que no ha tenido que salir jamás de su Sevilla natal para conseguir lo único que le importa en la vida: el fino, la gomina, el Betis y las mujeres. Todo cambia cuando conoce una mujer que se resiste a sus encantos: es Amaia (Clara Lago), una chica vasca. Decidido a conquistarla, se traslada a un pueblo de las Vascongadas, donde se hace pasar por vasco para vencer su resistencia. Adopta el nombre de Antxon y varios apellidos vascos: Arguiñano, Igartiburu, Erentxun, Gabilondo, Urdangarín, Otegi, Zubizarreta... y Clemente.',
     poster:
@@ -173,20 +369,36 @@ const peliculas = [
     video: '//ok.ru/videoembed/37509991020',
   },
   {
-    name: ' El blog de eduardo cabrera ',
+    name: '8 Apellidos Catalanes',
+    year: '2014',
+    campolibre:
+      'cine comedia españolas romance ocho apellidos vascos catalanes',
+    sinopsis:
+      'Las alarmas de Koldo se encienden cuando se entera de que su hija Amaia, tras romper con Rafa, se ha enamorado del catalán Pau y, ante tal "sacrilegio", cruza la frontera de Euskadi y pone rumbo a Sevilla para convencer a Rafa de que deben viajar a Cataluña al precio que sea. El objetivo es rescatarla de los brazos del joven y de su entorno.',
+    poster:
+      'https://cineuropa.org/Galleries/299/502/poster1_es_big.jpg?1444991511929',
+    imagen:
+      'https://cadenaser.com/resizer/iib0jvGCnMsb3iwh4M5QdfWngUQ=/1200x675/filters:format(jpg):quality(70)/cloudfront-eu-central-1.images.arcpublishing.com/prisaradio/GERYQEXIIVNMVBQFHKOPBN36PI.jpg',
+    video: (src = '//ok.ru/videoembed/78761888414'),
+  },
+
+  {
+    name: ' La presentación del proyecto Web en PDF ',
     year: '2022',
     campolibre:
-      'recurso html css javascript python git github slack mi primera publicación recursos para estudiantes general assembly escuela de talento del ayuntamiento de madrid',
-    sinopsis: ' primer blog dedicado a python css html y javascript',
+      'recurso como se hizo presentación del proyecto web archivos pdf archivo pdf documento pdf documentos pdf  proyectos web html css javascript Eduardo Cabrera git github documento documentos slack mi primer proyecto recursos para estudiantes general assembly',
+    sinopsis:
+      ' primer proyecto web css html y javascript para General Assembly. Por Eduardo Cabrera Blázquez. 3 días con Susana es un buscador de medios para videos, documentos, imagenes o paginas web.',
     poster: '/imagenes/portada_edu.jpg',
     imagen: '/imagenes/portada_edu_ga.png',
-    video: 'https://ga-eduardo.github.io/blog/index.html',
+    video: '/documentos/proyecto_con_susana.pdf',
   },
+
   {
-    name: 'Las Grabaciones de clases general Assembly',
+    name: 'Las Grabaciones de clases de general Assembly',
     year: '2022',
     campolibre:
-      'recurso las grabaciones de clases html css  videos pedro martín Álex Gabriel recursos para estudiantes general assembly grids flex selectores ',
+      'recurso recursos las grabaciones de clases de html css  videos pedro martín Álex Gabriel recursos para estudiantes general assembly grids flex selectores ',
     sinopsis:
       ' Las Grabaciones de clases general Assembly. Curso Web development. Fundación Adecco',
     poster: '/imagenes/imagen_slack.png',
@@ -214,14 +426,35 @@ const peliculas = [
       ' Perfiles de los alumnos de clases general Assembly. Curso Web development. Fundación Adecco mi perfíl de general assembly',
     poster: '/imagenes/perfiles_ga.png',
     imagen: 'https://thehive.sg/wp-content/uploads/2019/04/GA-2.jpg',
-    video:
-      'https://pages.git.generalassemb.ly/fewd-es/01-perfiles/eduardo-cabrera/',
+    video: ' /videos/tutorial001.mp4',
+  },
+  {
+    name: ' Como se hizo (demostración por teclado)',
+    year: '2022',
+    campolibre:
+      'recurso web proyecto web reconocimiento de voz reconocimiento por teclado busquedas por teclado html css como se hizo  videos  recursos para estudiantes general assembly grids flex selectores cancelación de ruido ',
+    sinopsis:
+      'Video tutorial del funcionamiento de mi aplicación 3 días con susana con reconocimiento por voz',
+    poster: '/imagenes/poster-tutorial001.png',
+    imagen: '/imagenes/imagen-tutorial001.png',
+    video: '/videos/tutorial001.mp4',
+  },
+  {
+    name: ' Como se hizo (reconocimiento por voz)',
+    year: '2022',
+    campolibre:
+      'recurso web proyecto web reconocimiento de voz html css como se hizo  videos  recursos para estudiantes general assembly grids flex selectores cancelación de ruido ',
+    sinopsis:
+      'Video tutorial del funcionamiento de mi aplicación 3 días con susana con reconocimiento por voz',
+    poster: '/imagenes/microfono-poster.png',
+    imagen: '/imagenes/imagen-microfono.png',
+    video: '/videos/microfono.mp4',
   },
   {
     name: ' Dame tu opinión',
     year: '2022',
     campolibre:
-      'recurso html css  videos youtube recursos para estudiantes general assembly grids flex selectores cancelación de ruido',
+      'recurso html css como se hizo  videos recursos para estudiantes general assembly grids flex selectores cancelación de ruido encuesta encuestas',
     sinopsis: ' P U L S A  P A R A  I R  A L  R E C U R S O',
     poster: '/imagenes/portada_edu.jpg',
     imagen:
@@ -257,26 +490,29 @@ const peliculas = [
     name: 'PDF Contrato y aceptación beca Adecco',
     year: '2022',
     campolibre:
-      'recursos PDF beca Adecco contrato Adecco PDF general assembly PDF Fundación adecco pdf archivos pdf archivo pdf',
+      'recursos PDF beca Adecco contrato Adecco PDF general assembly PDF Fundación adecco pdf archivos pdf archivo pdf documento pdf documentos pdf',
     sinopsis:
       ' PDF Contrato y aceptación beca Adecco. Curso Web development general assembly.',
     poster: '/imagenes/adecco_invierte.png',
     imagen:
       'https://www.telemadrid.es/2022/01/28/programas/madrid-trabaja/Fundacion-Adecco-formacion-colectivos-vulnerables_2418668129_30492542_1300x731.png',
-    video: '/imagenes/beca_adecco.pdf',
+    video: '/documentos/beca_adecco.pdf',
   },
   {
     name: 'Asistencia de personal del 9 de diciembre',
     year: '2021',
     campolibre:
-      'recursos excel archivo asistencias iforme de asistencias informes de asistencia archivos excel Bovis Proyect management archivo excel archivos excel',
+      'recursos excel archivo documento documentos google drive asistencias iforme de asistencias informes de asistencia archivos excel Bovis Proyect management archivo excel archivos excel',
     sinopsis:
       ' Asistencia de personal del 9 de diciembre. Enviado a gerencia, a la propiedad y al departamento de prevención de riesgos laborales',
     poster: '/imagenes/portada_excel.png',
     imagen: '/imagenes/imagen_excel.jpg',
-    video: 'https://ttsdemo.com/',
+    video:
+      'https://docs.google.com/spreadsheets/d/1KhBs59ZE4-PwD2AjlLDCD_Au_7TRZnB2/edit?usp=sharing&ouid=110552365265668306985&rtpof=true&sd=true',
   },
 ];
+
+// variables usadas en la función que filtra los recursos
 let comentario = '';
 let comentario2 = '';
 let textoabuscar=""
@@ -289,17 +525,12 @@ const filter = () => {
   list.innerHTML = '';
   let contador = 0;
   window.scrollTo(0, 0);
- 
-  
+   
   if (document.getElementById('search-bar').value === "") {
     comentario2 = "reset"
-    
-    
   }
-  
   const text = searchBar.value.toLowerCase();
   
-
   for (let pelicula of peliculas) {
     let name = pelicula.name.toLowerCase();
     let year = pelicula.year.toLowerCase();
@@ -327,23 +558,22 @@ const filter = () => {
       idvideo = pelicula.video;
       list.innerHTML += `	<div class="">
 														<li class=" card ">
-                            <span> ${pelicula.name} </span>
-                              	<p> ${pelicula.year} </p>
+                              <span> ${pelicula.name} </span>
+                              <p> ${pelicula.year} </p>
 														  <img id=${pelicula.video} onclick="prueba(this.id)"src=${pelicula.poster} alt="beach" class="card-image">
                               <h3 class="card-title">${pelicula.name}</h3>
-																
-                            
-													</div>`;
+														</li>		
+                          </div>`;
+      
       idsegundocard = pelicula.video + '-';
       list.innerHTML += `	<div id=${idsegundocard}  style="display:none">
 														<li class="card-anexo">
-                            <p> ${pelicula.name} </p>
+                              <p> ${pelicula.name} </p>
                               <textarea> ${pelicula.sinopsis} </textarea>
 														  <img id=${pelicula.video} onclick="prueba(this.id)"src=${pelicula.imagen} alt="beach" class="card-image-anexo">
                               <h3 class="card-title">${pelicula.name}</h3>
-																
-                            
-													</div>`;
+														</li>		
+                          </div>`;
     }
   
     
@@ -427,7 +657,7 @@ function prueba(x) {
 const toggleSwitch = document.getElementById('modovista');
 const toggleAudio = document.getElementById('modoaudio');
 var video = document.getElementById('background-video');
-toggleAudio.checked = true;
+toggleAudio.checked = false;
 
 function switchTheme(e) {
   if (e.target.checked) {
@@ -436,7 +666,19 @@ function switchTheme(e) {
     u.text = 'Activando modo oscuro';
     u.lang = 'es-CO';
     u.voice = speechSynthesis.getVoices()[0];
-    speechSynthesis.speak(u);
+    if (spech === 'si') {
+      annyang.abort();
+      setTimeout(function () {
+         speechSynthesis.speak(u);
+      }, 1000);
+     
+      if (microfono == true) {
+        setTimeout(function () {
+          start();
+        }, 2000);
+      }
+    }
+    
     video.setAttribute('src', './videos/Car.mp4');
    
   } else {
@@ -445,7 +687,19 @@ function switchTheme(e) {
     u.text = 'Activando modo claro';
     u.lang = 'es-CO';
     u.voice = speechSynthesis.getVoices()[0];
-    speechSynthesis.speak(u);
+    if (spech === 'si') {
+      annyang.abort();
+      setTimeout(function () {
+         speechSynthesis.speak(u);
+      }, 1000);
+     
+      if (microfono == true) {
+        setTimeout(function () {
+          start();
+        }, 2000);
+      }
+    }
+    
     video.setAttribute('src', './videos/Clouds.mp4');
   
    
@@ -459,7 +713,8 @@ function switchSpech(e) {
   u.lang = 'es-CO';
   u.voice = speechSynthesis.getVoices()[0];
   speechSynthesis.speak(u);
-  spech = "si"
+  spech = "si";
+  document.getElementById('mensajes').innerText ='Narrador activado';
 
   
   } else {
@@ -468,7 +723,8 @@ function switchSpech(e) {
     u.lang = 'es-CO';
     u.voice = speechSynthesis.getVoices()[0];
     speechSynthesis.speak(u);
-    spech="no"
+    spech = "no";
+    document.getElementById('mensajes').innerText = 'Narrador desactivado';
   }
 }
 
@@ -489,6 +745,8 @@ function moverse() {
 
 
 function vertodo(xx) {
+   
+
    miarticulo.setAttribute('src', "");
   document.getElementById('search-bar').value = xx;
    document.getElementById('frame').style.display = 'none';
@@ -509,12 +767,27 @@ function vertodo(xx) {
      document.getElementById('menu-recursos').style.display = 'none';
    }
   filter();
+  document.getElementById('search-bar').value = '';
+  
   
   const u = new SpeechSynthesisUtterance();
   u.text = 'has pedido '+xx;
   u.lang = 'es-CO';
   u.voice = speechSynthesis.getVoices()[0];
-  speechSynthesis.speak(u);
+  u.text=""
+
+ if (spech === 'si') {
+     
+      setTimeout(function () {
+         speechSynthesis.speak(u);
+      }, 1000);
+     
+      if (microfono == true) {
+        setTimeout(function () {
+          start();
+        }, 4000);
+      }
+    }
   
 
   document.getElementById('search-bar').value=""

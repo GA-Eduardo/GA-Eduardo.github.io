@@ -7,6 +7,7 @@ function edulearningacciones(textoabuscar) {
     frasehablada === 'ver vídeo' ||
     frasehablada === 'ver ahora' ||
     frasehablada === 'dale al play' ||
+    frasehablada === 'abrir' ||
     frasehablada === 'ahora' ||
     frasehablada === 'verla ahora' ||
     frasehablada === 'muéstrame' ||
@@ -20,7 +21,20 @@ function edulearningacciones(textoabuscar) {
       u.text = 'Aquí lo tienes.';
       u.lang = 'es-CO';
       u.voice = speechSynthesis.getVoices()[0];
-      speechSynthesis.speak(u);
+      if (spech === 'si') {
+        annyang.abort();
+        setTimeout(function () {
+          speechSynthesis.speak(u);
+           searchBar=""
+        }, 1000);
+
+        if (microfono == true) {
+          setTimeout(function () {
+            start();
+            searchBar = '';
+          }, 4000);
+        }
+      }
       document.getElementById('search-bar').value = '';
       searchBar.focus();
       document.getElementById('frame').style.display = 'block';
@@ -35,7 +49,18 @@ function edulearningacciones(textoabuscar) {
       u.text = 'Primero has de encontrar tu película.';
       u.lang = 'es-CO';
       u.voice = speechSynthesis.getVoices()[0];
-      speechSynthesis.speak(u);
+      if (spech === 'si') {
+        annyang.abort();
+        setTimeout(function () {
+          speechSynthesis.speak(u);
+        }, 1000);
+
+        if (microfono == true) {
+          setTimeout(function () {
+            start();
+          }, 2000);
+        }
+      }
       document.getElementById('search-bar').value = '';
       searchBar.focus();
     }
@@ -55,7 +80,18 @@ function edulearningacciones(textoabuscar) {
     u.text = 'Vamos a ver que necesitas';
     u.lang = 'es-CO';
     u.voice = speechSynthesis.getVoices()[0];
-    speechSynthesis.speak(u);
+   if (spech === 'si') {
+     annyang.abort();
+     setTimeout(function () {
+       speechSynthesis.speak(u);
+     }, 1000);
+
+     if (microfono == true) {
+       setTimeout(function () {
+         start();
+       }, 2000);
+     }
+   }
     document.getElementById('search-bar').value = '';
     searchBar.focus();
     filter();
