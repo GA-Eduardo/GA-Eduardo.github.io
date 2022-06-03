@@ -14,7 +14,7 @@ let veces = 0;
 let ultimapelcula = ""
 let miarticulo = document.getElementById('frame');
 let mivideoportada = document.getElementById('iframe2');
-let urlportada = './videos/tutorial001.mp4';
+let urlportada = './videos/tutorial001.webm';
 mivideoportada.setAttribute('src', urlportada);
 
 // la siguiente linea llama a una funcion de escucha 
@@ -426,7 +426,8 @@ const peliculas = [
       ' Perfiles de los alumnos de clases general Assembly. Curso Web development. Fundación Adecco mi perfíl de general assembly',
     poster: '/imagenes/perfiles_ga.png',
     imagen: 'https://thehive.sg/wp-content/uploads/2019/04/GA-2.jpg',
-    video: ' /videos/tutorial001.mp4',
+    video:
+      ' https://pages.git.generalassemb.ly/fewd-es/01-perfiles/eduardo-cabrera/',
   },
   {
     name: ' Como se hizo (demostración por teclado)',
@@ -437,7 +438,7 @@ const peliculas = [
       'Video tutorial del funcionamiento de mi aplicación 3 días con susana con reconocimiento por voz',
     poster: '/imagenes/poster-tutorial001.png',
     imagen: '/imagenes/imagen-tutorial001.png',
-    video: '/videos/tutorial001.mp4',
+    video: '/videos/tutorial001.webm',
   },
   {
     name: ' Como se hizo (reconocimiento por voz)',
@@ -448,7 +449,7 @@ const peliculas = [
       'Video tutorial del funcionamiento de mi aplicación 3 días con susana con reconocimiento por voz',
     poster: '/imagenes/microfono-poster.png',
     imagen: '/imagenes/imagen-microfono.png',
-    video: '/videos/microfono.mp4',
+    video: '/videos/microfono.webm',
   },
   {
     name: ' Dame tu opinión',
@@ -709,7 +710,7 @@ function switchTheme(e) {
 function switchSpech(e) {
   if (e.target.checked) {
   const u = new SpeechSynthesisUtterance();
-  u.text = 'narrador activado';
+  u.text = 'narrador no funcionará en esta version';
   u.lang = 'es-CO';
   u.voice = speechSynthesis.getVoices()[0];
   speechSynthesis.speak(u);

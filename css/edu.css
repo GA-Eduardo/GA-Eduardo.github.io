@@ -1,30 +1,56 @@
+/* ---------------------------------------------------------------------------------------- */
+/* ------------------ CSS PRINCIPAL DEL EJERCICIO------------------------------------------ */
+/* ---------------------------------------------------------------------------------------- */
+
+
+/* IMPORTACION DE LA FUENTE USADA POR DEFECTO --------------------------------------------- */
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap");
+
+
+/* El valor border-box en el box-sizing hace que el padding y el border pasen a formar parte
+   del cálculo del ancho de la caja y no lo suman posteriormente ---------------------------*/
 * {
 	box-sizing: border-box;
 }
+
+/* varibles de colores usadas por defecto */
 :root {
     --bg-color: #cfd8dc;
     --text-color: #212121;
     --other-color:white;
-     --button-color:rgb(255, 255, 255);
+    --button-color:rgb(255, 255, 255);
     --fondo-tooltip-vista:rgb(198, 233, 241);
     --fondo-tooltip-narrador:rgb(161, 221, 235);
     --fondobotones:rgb(12, 93, 139);
 }
+
+/* ATRIBUTO QUE SE ASIGNARA DESDE JAVASCRIP PARA CAMBIAR A MODO OSCURO DENTRO DE UNA FUNCION
+  (document.documentElement.setAttribute('data-theme', 'dark'); */
 [data-theme="dark"] {
     --bg-color: #010e14;
     --text-color: #888585;
     --other-color:#888585;
     --fondo-tooltip:rgb(90, 36, 5);
     --fondobotones:rgb(68, 112, 138);
-     --button-color:rgb(0, 0, 0);
+    --button-color:rgb(0, 0, 0);
 }
+/* ----------------------------------    HTML    -------------------------------------------------------- */
+/* CON FONT SIZE 100% NOS ASEGURAMOS CONSERVAR LAS PREFERENCIAS DE NAGEGACION Y TAMAÑO FUENTE DEL USUARIO */
 html {
-	font-size: 1.3rem;
+	font-size: 100%;
 }
+
+/* -----------------------------------   BODY   ---------------------------------------------------------- */
+
 body {
   font-family: "Roboto";
+  /* LA SIGUIENTE LINEA establece la distancia entre líneas de texto 
+  (ALGO REDUCIDA EN ESTE CASO) */
 	line-height: 0.9;
+  /* La propiedad overflow-x especifica QUE si se recorta el contenido, 
+  se agregará una barra de desplazamiento o se muestra el contenido de 
+  desbordamiento de un elemento a nivel de bloque, cuando se desborda 
+  en los bordes izquierdo y derecho */
 	overflow-x: hidden;
 	position: relative;
   margin: 0 auto;
@@ -34,7 +60,8 @@ body {
   background-position: center center;
   background-size: cover;
 }
-#background-video {
+/* clase que da el estilo del video de fondo */
+.back-video {
   width: 100vw;
   height: 100vh;
   object-fit: cover;
@@ -45,27 +72,37 @@ body {
   bottom: 0;
   z-index: -1;
 }
+/* -------------------   zona de creación de contenido dinámico (UL)   ------------------------- */
 ul {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(12em, 1fr));
+  /* La propiedad grid-template-columns especifica el número (y el ancho) de las columnas
+   en mi diseño de cuadrícula. (ZONA DE CONTENIDO DINAMICO)
+   En la función minmax(), el primer valor es el tamaño mínimo que quiero que tengan mis elementos,
+   el segundo es el máximo. Al usar 1fr como valor máximo, el espacio se distribuye equitativamente.*/
+  grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
 	grid-auto-rows: min-content;
 	grid-column-gap: 1rem;
 	grid-row-gap: 1rem;
+  /* usando "dense" se intenta llenar los huecos si aparecen elementos más pequeños más tarde.
+   Esto puede hacer que los artículos parezcan desordenados, cuando al hacerlo se llenarían 
+   los huecos que dejan los artículos más grandes. */
 	grid-auto-flow: dense;
 	flex-wrap:wrap;
 }
+/* estilo que anticipa estilos(en div) padre del contenido dinámico (li) */
 .row{
    max-width: 90%;
    margin-left: 0.7rem;
-}
+ }
 .row li {
 	background-color: hsl(0, 3%, 79%);
   list-style:none;
   border-radius: 1.625rem;
  }
 .row li:hover{
- 		background-color:  hsl(0, 0%, 94%);
+ 	background-color:  hsl(0, 0%, 94%);
 }
+/* estilo para el input (entrada de datos por teclado) */
 .buscador{
   width: 50%;
   height: 1.8rem;
@@ -76,7 +113,9 @@ ul {
   padding: 0 3.5rem 0 1.5rem;
   font-size: 1rem;
 }  
-#mensajes{
+/* esta clase esta asignada a un parrafo para que muestre una animación 
+   con un cambio suave (6s) e infinito y no sea molesta pero si visible */
+.mensajes{
   width: fit-content;
   margin: 0 auto;
   animation-name: mensajes;
@@ -90,6 +129,12 @@ ul {
    
   100% {color: #ff0;} /*Otra vez amarillo*/
 }
+
+/* el siguiente estilo corresponde a dos divs que tienen (inputs)-checkbox-
+   y  class="toggle-button" que se usan desde javascript para
+   cambiar (modo oscuro /modo Claro) y activar y desactivar un narrador
+   que se encuentran en el navegador al lado de las opciones*/
+
 .theme{
   color:var(--other-color);
   top:1rem;
@@ -101,13 +146,20 @@ ul {
   border-radius: 2rem;
   margin-right: 1rem;
 }
+/* continuacion de estilos en elemento de texto en inputs(checkbox (2) en navegador */
+
 #tool-vista,#tool-audio{
   font-size: 0.7rem;
   margin-right: 0.5rem;
   padding-left: 1rem;
 }
+/* clase que da el estilo a los input(checkbox) */
 .toggle-button {
+  /* La propiedad de apariencia se usa para mostrar un elemento usando un estilo nativo
+   de la plataforma basado en el tema del sistema operativo de los usuarios */
   -webkit-appearance: none;
+  /* WebKit es una plataforma para aplicaciones que funciona como base para el navegador
+   web Safari y Epiphany,​ entre otros. También fue base de Opera, Midori,​ Maxthon​ y QupZilla. */
   outline: none;
   width: 2rem;
   height: 1rem;
@@ -117,6 +169,10 @@ ul {
   transition: .4s;
 }
 .toggle-button:before{
+  /* before crea un pseudoelemento que es el primer hijo del elemento seleccionado. 
+  en este caso es un parrafo y lo dejo en blanco porque no lo necesito, pero
+  aprobecho para meter una transición suave en el cambio de estado y el resto de estilos
+  que corresponden al circulo  (on/off) */
   content: "";
   position: absolute;
   height: 1rem;
@@ -131,14 +187,22 @@ ul {
   background-color: #bdbdbd;
 }
 .toggle-button:checked:before {
+  /* Esta transformacion esta compuesta por un vector bidimensional
+  cuyas coordenadas definen cuanto se movera el elemente en cada dirección.
+  en este caso lo hace un 100% dentro de su contenedor(circulo on/off) 
+  con transición .4seg */
   transform: translate(100%);
   background-color: #212121;
   transition: .4s;
 }
+/* Estilo para los elemntos (li)-dinamicos que pertenecen a ul (Grid)
+   seria el contenedor de la carutula pequeña del video (que albergará el poster, titulo etc.. */
 .card {
   min-height: 450px;
   background-color: #333;
   border-radius: 10px;
+  /* Un contorno es una línea que se dibuja al rededor de los elementos,
+   fuera de los límites de su borde. */
   outline: 1px solid rgba(255, 255, 255, .5);
   outline-offset: -1px;
   box-shadow: 3px 3px 10px rgba(0, 0, 0, .1);
@@ -150,9 +214,8 @@ ul {
   color: #000;
   padding: 0.5rem;
 }
-.segundo{
-  display: none;
-}
+/* este estilo es para otro (card) que se muestra dinamicamente
+solo cuando la funcion fitro encuentara un elemento (se mostrará junto al otro card*/
 .card-anexo {
   display: none;
   width: 70vw;
@@ -169,18 +232,15 @@ ul {
   padding-top: 15px;
   color: #000;
 }
+/* estilo para el div que alberga el iframe donde se ven documentos
+peliculas o el mismo navegador microsoft Bing embebido */
 .flex{
   display: flex;
   align-items: center;
 }
-.encuesta{
-  width: 80%;
-  height: 80vh;
-  margin:0 auto;
-  margin-bottom: 3rem;
-  background-color: transparent
-}
-#frame{
+/* estilos para el iframe que se encarga de presentar los resultados
+  y que estará oculto hasta su llamada desde javascript */
+.frame{
   width: 80%;
   height: 80vh;
   display:none;
@@ -188,17 +248,22 @@ ul {
   margin-bottom: 0.3rem;
   background-color: rgb(242, 244, 247);
 }
-table{
+/* estilo del gidget reloj analogico (posicion absoluta debajo del logo)
+  y que no pertenece a progración propia */
+/* table{
   position: absolute;
   top:70px;
   left: 40px;
-}
-#botoneras{
+} */
+/*  botones de decisión justo debajo del titulo y el buscador */
+.misbotoneras{
   margin-top:1rem;
 }
-#menu-cine, #menu-recursos{
+/* estilo oculto y manejado por javascript para diversas botoneras */
+.menu-cine, .menu-recursos{
   display:none
 }
+/* estilos que se asignarán dinamicamente para la imagen(poster) del card */
 .card-image {
   position: absolute;
   padding:2.5rem 1rem ;
@@ -207,9 +272,14 @@ table{
   height:100%;
   object-fit: cover;
   opacity: .4;
+  /*The transform property applies a 2D or 3D transformation to an element.
+   This property allows you to rotate, scale, move, skew, etc., elements.
+   en este caso solo se especifica el tiempo
+   la trsnsformación de escala se esfecifica en (hover) */
   transition: transform 1s;
   border-radius: 4rem;
 }
+/* estilos que se asignarán dinamicamente para la imagen(grande) del segundo card */
 .card-image-anexo {
   position: absolute;
   padding:1rem 1rem ;
@@ -218,28 +288,24 @@ table{
   height:100%;
   object-fit: cover;
   opacity: .2;
+  /*  en el siguiente atributo solo se especifica el tiempo
+   la trsnsformación de escala se esfecifica en (hover) */ 
   transition: transform 5s;
   border-radius: 4rem;
 }
-.card-video{
-  position: absolute;
-  padding:3rem 2rem ;
-  inset: 0;
-  width: 50%; 
-  height:50%;
-  object-fit: cover;
-  opacity: .4;
-  transition: transform 1s;
-  border-radius: 4rem;
-}
+
+
 .card:hover .card-image {
+  /* transformación de escala para efecto en poster */
   transform: scale(1.10);
   opacity: 1;
 }
 .card-anexo:hover .card-image-anexo {
+   /* transformación de escala para efecto en imagen segundo card */
   transform: scale(1.0);
   opacity: 0.7;
 }
+/* estilos para textos en card */
 .card-title  {
   position: absolute;
   max-width: 11rem;
@@ -253,6 +319,7 @@ span, p{
   text-shadow: 2px 2px 10px rgba(0, 0, 0, .5);
   color:var(--other-color);
 }
+/* estilo para texto (textarea) que muestra la sinopsis o comentario del elemento */
 textarea{
   text-align: center;
   width: 60%;
@@ -263,16 +330,18 @@ textarea{
 h3 {
   color:var(--other-color);
 }
+/* div para dar estilos (Padre del Navegador) */
 .container {
   width: 100%;
   margin: 0 auto;
   padding: 0 15px;
 }
+/* estilos que se aplican (al header) */
 .header-area {
 min-height: 20vh;
 font-size: 0.7rem;
 }
-/* navbar  */
+/*-------------------------------------zona navbar ---------------------------------------------- */
 .navbar-area {
   background: rgba(0,0,0,.6);
   border-bottom: 1px solid #000;
@@ -283,6 +352,7 @@ font-size: 0.7rem;
 } 
 .site-navbar {
   display: flex;
+  /* el flex se justifica desde el fondo a la derecha (hacia el resto despues) */
   justify-content:flex-end;
   align-items: center;
  }
@@ -292,6 +362,8 @@ a.site-logo {
   left: 2rem;
   font-size: 0.9rem;
   font-weight: 800;
+  /* se transforma el texto del logo a mayusculas. No es importante
+  pero se puede ver que esta escrito en munusculas en el Html (para probar funcionalidad) */
   text-transform: uppercase;
   color: var(--other-color);
   text-decoration: none;
@@ -307,16 +379,35 @@ a.site-logo {
   padding: 20px;
   display: block;
   text-decoration: none;
+  /* se transforman los textos a mayusculas. No es importante
+  pero se puede ver que esta escrito en munusculas en el Html (para probar funcionalidad) */
   text-transform: uppercase;
 }
 .site-navbar ul li a:hover {
   background: rgba(255,255,255,.1);
 }
-/* nav-toggler*/
+/*-------------- N A V  T O G G L E R -------------(desde Javascript)---------------------*/
+/*--------------------------------------------------------------------------------------- */
+/*------------------------- variable y escuchador de evento-----------------------------  */
+/*------------------------- const navToggler = document.querySelector('.nav-toggler'); ---*/
+/*------------------------- navToggler.addEventListener('click', togglerClick);---------- */
+/*--------------------------------------------------------------------------------------- */
+/*------------------------- la siguiente función cambia la clase para el navegador
+-----------------------------------function togglerClick() {
+------------------------------------  navToggler.classList.toggle('toggler-open');
+------------------------------------- navMenu.classList.toggle('open');}----------------- */
+/*--------------------------------------------------------------------------------------- */
+/*------------------------- navLinkClick function----------------------------------------
+-------------------------------------- function navLinkClick() {
+--------------------------------------     if (navMenu.classList.contains('open')) {
+--------------------------------------     navToggler.click();}---------------------------*/
+
 .nav-toggler {
   border: 3px solid #fff;
   padding: 5px;
   background-color: transparent;
+  /* La propiedad CSS:cursor especifica el tipo de cursor que se mostrara cuando 
+  este se encuentre sobre un elemento. pointer (typically a hand) */
   cursor: pointer;
   height: 39px;
   display: none;
@@ -347,7 +438,7 @@ a.site-logo {
 .nav-toggler.toggler-open span:after {
   transform: translateY(-3px) rotate(-45deg);
 }
-/* intro-area css */
+/* zona del titulo,parrafo de mensajes (h1)*/
 .intro-area {
   margin-top: 2rem;
   min-height: 15vh;
@@ -356,6 +447,7 @@ a.site-logo {
   text-align: center;
   color: #fff;
 }
+/* estilos para el titulo de esta web */
 .intro-area h1 {
   color: var(--other-color);
   font-size: 50px;
@@ -363,10 +455,14 @@ a.site-logo {
   line-height: 50px;
   margin-bottom: 25px;
 }
+/* estilo (tamaño de fuente del parrafo de mensajes */
 .intro-area p {
   font-size: 18px;
+padding-bottom: 3rem;
 }
-.content {
+/* estilos para la zona del boton de microfono para reconocimiento por voz */
+/* EL CSS DEL SIGUIENTE BOTON, TRASFORMACIONES Y DEMAS LO TRAJE DE INTERNET Y NO ES CSS MIO */
+/* .content {
   display: inline-block;
   min-height: 8vh;
   align-items: center;
@@ -432,6 +528,14 @@ a.site-logo {
   border-radius: 100%;
   animation: borderLoader 1.3s 0.2s ease-in-out infinite; 
 }
+@keyframes borderLoader {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
 .mic {
   position: relative;
   top: -11px;
@@ -471,19 +575,29 @@ a.site-logo {
   border-left: 10px solid #fff;
   border-right: 10px solid #fff;
 }
-.video{
+ */
+
+/* --------------------------------------------------------------------------------------------------------- */
+/*--------------------- FIN DE LA ZONA DE CSS (MIC) IMPORTADO DE INTERNET----------------------------------- */
+/* --------------------------------------------------------------------------------------------------------- */
+
+
+/* estilos para el padre de los dos iframes que uso */
+.padreFrame{
   margin: 0 auto;
   display:none;
   text-align:center;
   position: relative;
   overflow: hidden;
   width: 40%;
-  padding-top: 24.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+  padding-top: 24.25%; 
   margin-bottom: 5rem;
 }
+/* estilo para video inicial a modo de tutorial */
 .video-ayuda{
   display: block;
 }
+/* estilos clase asignada a iframes */
 .responsive-iframe {
   position: absolute;
   top: 0;
@@ -493,9 +607,20 @@ a.site-logo {
   width: 100%;
   height: 100%;
   background-color: transparent;
+  /* creo una animación para mostrar un elemento video suavemente*/
   animation: opacidad 10s ;
   border-radius: 2rem;
 }
+@keyframes opacidad { 
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+/* estilos modificando tooltip que uso de libreria (tippy.js)
+se ve como se asigna en edutooltips.js*/
 .tooltip{
   color:var(--text-color);
   font-size:0.9rem;
@@ -509,25 +634,7 @@ a.site-logo {
 .tooltip-narrador{
   background-color:var(--fondo-tooltip-narrador);
 }
-
-@keyframes opacidad { 
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes borderLoader {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(359deg);
-  }
-}
-
+/* clase asignada al footer */
 .flex-footer {
   width: 100%;
   display: flex;
@@ -537,7 +644,7 @@ a.site-logo {
   background-color: rgb(71, 180, 239);
   opacity: 0.4;
   position: absolute;
-  bottom: -40;
+  bottom: 0;
   
  }
  .flex-footer p{
@@ -545,6 +652,9 @@ a.site-logo {
  }
 
 /* mobile breakpoint  */
+/* el funcionamiento liquido de los elementos no necesita mas que esta medida asignada
+   solo para determinadas cosas que he querido cambiar, mostrar u ocultar y para 
+   el cambio del nagegador a menu hambueguesa*/
 @media screen and (max-width: 767px) {
   table{
     display: none;
@@ -591,9 +701,9 @@ a.site-logo {
     font-size: 36px;
     margin-bottom: 15px;
   }  
-  .site-logo{
+  /* .site-logo{
     display:none;
-  }
+  } */
   .buscador{
    width: 70%;
   }
@@ -610,8 +720,4 @@ a.site-logo {
 
 
 
-  @media screen and (min-width: 0px) and (max-width: 200px) {  
-  body{
-  display:none;
-  }
-}  
+ 

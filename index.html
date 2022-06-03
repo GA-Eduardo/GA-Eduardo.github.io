@@ -26,7 +26,7 @@
       <!-- mi header tiene diferentes areas especificadas por distintas clases --------------------------------------------------------->
     <header class="header-area">
       <!-- Se carga un un video de fondo (local en carpeta) para modo claro.(hay un opción de modo oscuro en el proyecto---------------->
-      <video id="background-video" autoplay loop muted >
+      <video id="background-video" class="back-video" autoplay loop muted >
         <source src="./videos/Clouds.mp4" type="video/mp4">
       </video>
       <!-- zona o sección donde se encuentra la navegación y el logo ------------------------------------------------------------------->
@@ -34,7 +34,7 @@
         <div class="container">
         <nav class="site-navbar">
           <!-- colocación del logo (desapare en determinado tamaño) -------------------------------------------------------------------->
-          <a href="#" class="site-logo">COSAS DE EDU </a>
+          <a href="#" class="site-logo">Cosas de Edu </a>
           <!-- incluido en navegación,la clase theme se usa para un Toogle button(modo claro/oscuro------------------------------------->
           <div class="theme">
             <p id="tool-vista" >Vista</p>
@@ -42,11 +42,11 @@
             <p style="margin-left:20px;"></p>
           </div>
           <!-- incluido en la navegación, la clase theme se usa para un Toogle button (narrador)---------------------------------------->
-          <div class="theme">
+           <div class="theme">
             <p id="tool-audio">A.Spech</p>
             <input type="checkbox" class="toggle-button"  id="modoaudio">
             <p style="margin-left:20px;"></p>
-          </div>
+          </div>  
           <!-- Sitio para la tres anclas (el logo de arriba tamnien lo lleva) ---------------------------------------------------------->
           <div>
             <ul>
@@ -67,20 +67,20 @@
         <div class="container">
           
           <!-- gidget reloj analogico (posicion absoluta debajo del logo ---------------------------------------------------------------->
-          <table>
+         <!--  <table>
               <tr><td style="text-align: center;"><canvas id="canvas_tt6282e69d0e727" width="125" height="125"></canvas></td></tr>
               <tr><td style="text-align: center; font-weight: bold"><a href="#" style="text-decoration: none" class="clock24" id="tz24-1652745885-c1141-eyJzaXplIjoiMTI1IiwiYmdjb2xvciI6IjAwOTlGRiIsImxhbmciOiJlcyIsInR5cGUiOiJhIiwiY2FudmFzX2lkIjoiY2FudmFzX3R0NjI4MmU2OWQwZTcyNyJ9" title="Madrid hora local" target="_blank" rel="nofollow"></a></td></tr>
-          </table>
+          </table> -->
           <script type="text/javascript" src="//w.24timezones.com/l.js" async></script>
           
           <!-- TITULO (H1) DESCRIPTIVO Y COINCIDENTE CON TITULO HEAD --------------------------------------------------------------------->
           <h1>3 días con Susana</h1>
-          <p id="mensajes">Escribe o dicta tu petición a Susana</p>
+          <p id="mensajes" class="mensajes">Escribe o dicta tu petición a Susana</p>
           <!-- buscador por texto (y tambien recibe dictado del Mic.) -->
           <input type="text" class="buscador" id="search-bar"  autofocus placeholder="Search Name, Word.." />
           <!-- contenido del botón utilzado para activar y desactivae el microfono ------------------------------------------------------->
           <!-- he reutilzado un código ajeno para realizar el botón y su transición ------------------------------------------------------>
-          <div class="content">
+          <!-- <div class="content">
             <div class="button-container">
             <input type="checkbox" id="micButton" class="mic-checkbox">
             <label for="micButton" class="mic-button">
@@ -95,7 +95,7 @@
               </div>
             </label>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </header>
@@ -103,7 +103,7 @@
     <main>
       <!-------------------------- PRINCIPAL ------------------------------------------------------------------------------------------->
       <!-- sección de botones de decisión justo debajo del titulo y el buscador -------------------------------------------------------->
-      <section id="botoneras"> 
+      <section id="botoneras" class="misbotoneras"> 
         <ul id="menu" class="button-group">
           <li><button onclick="vertodo('cine')" class="small button">PELICULAS</button></li>
           <li><button onclick="vertodo('recursos')" class="small button">RECURSOS</button></li>
@@ -112,7 +112,7 @@
 
           
         </ul>
-         <ul id="menu-recursos" class="button-group">
+         <ul id="menu-recursos" class="button-group menu-recursos">
           <li><button onclick="vertodo('recursos')"class="small button">TODOS LOS RECURSOS</button></li>
           <li><button onclick="vertodo('html')"class="small button">HTML</button></li>
           <li><button onclick="vertodo('css')"class="small button">CSS</button></li>
@@ -122,7 +122,7 @@
           <li><button onclick="vertodo('cine')"class="small button">CINE</button></li>
           <li><button onclick="vertodo('dame tu opinión')"class="small button">DAME TU OPINION</button></li>
         </ul>
-        <ul id="menu-cine" class="button-group">
+        <ul id="menu-cine" class="button-group menu-cine">
           <li><button onclick="vertodo('cine')"class="small button">TODO EL CINE</button></li>
           <li><button onclick="vertodo('acción')"class="small button">ACCION</button></li>
           <li><button onclick="vertodo('aventura')"class="small button">AVENTURA</button></li>
@@ -147,19 +147,19 @@
           <!----------------------------------- en zona vista tenemos el iframe donde presento el contenido  ------------------------->
           <div id="zona-vista" class="flex">
              <!-- loading lazy es una técnica popular para solicitar gradualmente las imágenes a medida que aparecen ----------------->
-            <iframe id="frame"  src=""  loading="lazy" allow="fullscreen"></iframe>
+            <iframe id="frame" class="frame" src=""  loading="lazy" allow="fullscreen"></iframe>
           </div>
       </section>
       </section>
       <!-- zona de videos de reproducción -->
       <section>
         <!-- iframe que albergará reproducción de video principal -------------------------------------------------------------------->
-        <div class="video" id="video">
+        <div class="padreFrame" id="video">
           <iframe id="iframe"  class="responsive-iframe" src="" frameborder="0" allowfullscreen allow='autoplay'></iframe>
         </div>
 
         <div id="zona-ayuda">
-          <div class=" video video-ayuda" id="siguientesvideos">
+          <div class=" padreFrame video-ayuda" id="siguientesvideos">
           <iframe id="iframe2" class="responsive-iframe " src="" frameborder="0"  autoplay="false" allowfullscreen></iframe>
           </div> 
         </div>  

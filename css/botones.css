@@ -1,3 +1,6 @@
+/* estilos de botones que traje de internet por comodidad */
+
+
 .button::-moz-focus-inner{
   border: 0;
   padding: 0;
