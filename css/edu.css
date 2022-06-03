@@ -358,7 +358,7 @@ font-size: 0.7rem;
  }
 a.site-logo {
   position: absolute;
-  top: 0.8rem;
+  top: 1.2rem;
   left: 2rem;
   font-size: 0.9rem;
   font-weight: 800;
@@ -644,7 +644,7 @@ se ve como se asigna en edutooltips.js*/
   background-color: rgb(71, 180, 239);
   opacity: 0.4;
   position: absolute;
-  bottom: 0;
+  bottom: -4rem;
   
  }
  .flex-footer p{
